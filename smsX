@@ -1,0 +1,55 @@
+#!usr/bin/bash
+red="\033[1;31m"
+green="\033[0;32m"
+blue="\033[1;34m"
+echo -e """$red
+        .  .
+          dOO  OOb
+         dOP'..'YOb
+         OOboOOodOO
+       ..YOP.  .YOP..
+     dOOOOOObOOdOOOOOOb
+    dOP' dOYO()OPOb 'YOb
+        O   OOOO   O    
+    YOb. YOdOOOObOP .dOP
+     YOOOOOOP  YOOOOOOP"""
+     sleep 1
+echo -e """$green
+      ####  #####    ##    ####  #    # ###### #####         ####  #    #  ####
+    #    # #    #  #  #  #    # #   #  #      #    #       #      ##  ## #
+    #      #    # #    # #      ####   #####  #    # #####  ####  # ## #  ####
+    #      #####  ###### #      #  #   #      #####             # #    #      #
+    #    # #   #  #    # #    # #   #  #      #   #        #    # #    # #    #
+     ####  #    # #    #  ####  #    # ###### #    #        ####  #    #  ####
+     -m = mandar sms em quantidade
+     -n = visualizar contatos
+"""
+getopts mn smsopt
+
+if [ "$smsopt" == "m" ];then 
+    read -p "digite o $i1 numero? " num
+    read -p "digite a mensagem? " men
+    read -p "digite quantidade mensagem? " quan
+    read -p "digite tempo de envio: " time
+    for i2 in $(seq 1 $quan);do
+        termux-sms-send -n $num $men
+        clear
+        echo -e $blue"--------------"
+        echo -e $red " CRACKER-SMS  "
+        echo -e $blue"--------------"
+        echo -e $blue"$i1 numero: $num"
+        echo -e $blue"mensagem: $men"
+        echo -e $blue"quantidade do:"$green"$i2"
+        sleep $time
+    done
+    if [ "$i2" == "$quan" ];then 
+        echo -e $red "resultado: "$green"sucesso"
+    else
+        echo -e $red "$i2 erro resultado: "$red"falso"
+    fi
+elif [ "$smsopt" == "n" ];then 
+    numbers1=$(termux-contact-list |grep "[0:20]")
+    echo -e $red"$numbers1"
+else
+    echo -e $red"erro de parametro nao encontrado digite -m "
+fi
